@@ -1,24 +1,36 @@
 <html>
 <head>
 <title>Shikodes</title>
-<link href="https://unpkg.com/tailwindcss@^1.0/dist/tailwind.min.css" rel="stylesheet">
-</head>
-<body>
 
-<header class="text-gray-700 body-font">
+  <!-- tailwind -->
+  <link href="https://unpkg.com/tailwindcss@^1.0/dist/tailwind.min.css" rel="stylesheet">
+
+  <!-- local files-->
+  <link href="css/main.css" rel="stylesheet">
+  <link href="css/normalize.css" rel="stylesheet">
+
+  <!-- font awesome -->
+  <script defer src="https://use.fontawesome.com/releases/v5.3.1/js/all.js"></script>
+
+  <!-- vue js -->
+  <script src="https://cdn.jsdelivr.net/npm/vue@2.6.11"></script>
+
+</head>
+<body onscroll="modifyNav()">
+
+<nav id="navbar" class="text-gray-700 body-font is-sticky">
   <div class="container mx-auto flex flex-wrap p-5 flex-col md:flex-row items-center">
-    <a class="flex title-font font-medium items-center text-gray-900 mb-4 md:mb-0">
+    <a id="nav-logo" class="flex title-font font-medium items-center text-gray-900 mb-4 md:mb-0">
       <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="w-10 h-10 text-white p-2 bg-indigo-500 rounded-full" viewBox="0 0 24 24">
-        <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"></path
-          
+        <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"></path>
       </svg>
       <span class="ml-3 text-xl">Shikodes</span>
     </a>
     <nav class="md:ml-auto flex flex-wrap items-center text-base justify-center">
-      <a class="mr-5 hover:text-gray-900">Home</a>
-      <a class="mr-5 hover:text-gray-900">Timed Challenges</a>
-      <a class="mr-5 hover:text-gray-900">Self-Practice</a>
-      <a class="mr-5 hover:text-gray-900">Discussions</a>
+      <a class="mr-5 hover:text-gray-900 cursor-pointer">Home</a>
+      <a class="mr-5 hover:text-gray-900 cursor-pointer">Timed Challenges</a>
+      <a class="mr-5 hover:text-gray-900 cursor-pointer">Self-Practice</a>
+      <a class="mr-5 hover:text-gray-900 cursor-pointer">Discussions</a>
     </nav>
     <button class="inline-flex items-center bg-gray-200 border-0 py-1 px-3 focus:outline-none hover:bg-gray-300 rounded text-base mt-4 md:mt-0">Button
       <svg fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="w-4 h-4 ml-1" viewBox="0 0 24 24">
@@ -26,7 +38,7 @@
       </svg>
     </button>
   </div>
-</header>
+</nav>
 
 
   <section class="text-gray-700 body-font">
@@ -47,51 +59,34 @@
   </div>
 </section>
 
-<! -- horizontal blocks -->
-<section class="text-gray-700 body-font overflow-hidden">
-  <div class="container px-5 py-24 mx-auto">
-    <div class="-my-8">
-      <h1 class="title-font sm:text-4xl text-3xl mb-4 font-medium text-gray-900">
-        <br class="hidden lg:inline-block">Upcoming Events
-      </h1>
-      <div class="py-8 flex flex-wrap md:flex-no-wrap">
-        <div class="md:w-64 md:mb-0 mb-6 flex-shrink-0 flex flex-col">
-          <span class="tracking-widest font-medium title-font text-gray-900">CHALLENGE</span>
-          <span class="mt-1 text-gray-500 text-sm">Friday, 7 Aug 2020</span>
-          <span class="mt-1 text-gray-500 text-sm">6.00pm</span>
-        </div>
-        <div class="md:flex-grow">
-          <h2 class="text-2xl font-medium text-gray-900 title-font mb-2">Challenge header #1</h2>
-          <p class="leading-relaxed">This is some info about the challenge</p>
-          <a class="text-indigo-500 inline-flex items-center mt-4">Learn More
-            <svg class="w-4 h-4 ml-2" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round">
-              <path d="M5 12h14"></path>
-              <path d="M12 5l7 7-7 7"></path>
-            </svg>
-          </a>
-        </div>
-      </div>
+  <!-- horizontal blocks -->
+  <section class="text-gray-700 body-font overflow-hidden">
+    <div id="challenges" class="container px-5 py-24 mx-auto">
+      <div>
+        <h1 class="title-font sm:text-4xl text-3xl mb-4 font-medium text-gray-900 mb-8">
+          <br class="hidden lg:inline-block">Upcoming Events
+        </h1>
 
-      <div class="py-8 flex border-t-2 border-gray-200 flex-wrap md:flex-no-wrap">
-        <div class="md:w-64 md:mb-0 mb-6 flex-shrink-0 flex flex-col">
-          <span class="tracking-widest font-medium title-font text-gray-900">CHALLENGE</span>
-          <span class="mt-1 text-gray-500 text-sm">Friday, 14 Aug 2020</span>
-          <span class="mt-1 text-gray-500 text-sm">5.00pm</span>
+        <div v-for="challenge of all_challenges" class="py-8 flex flex-wrap md:flex-no-wrap px-8 has-border-on-hover cursor-pointer mb-4">
+          <div class="md:w-64 md:mb-0 mb-6 flex-shrink-0 flex flex-col">
+            <span class="tracking-widest font-medium title-font text-gray-900">CHALLENGE</span>
+            <span class="mt-1 text-gray-500 text-sm">{{ challenge.date }}</span>
+            <span class="mt-1 text-gray-500 text-sm">{{ challenge.time }}</span>
+          </div>
+          <div class="md:flex-grow">
+            <h2 class="text-2xl font-medium text-gray-900 title-font mb-2">{{ challenge.header }}</h2>
+            <p class="leading-relaxed">{{ challenge.info }}</p>
+            <a class="text-indigo-500 inline-flex items-center mt-4">Learn More
+              <i class="fas fa-arrow-right"></i>
+            </a>
+          </div>
         </div>
-        <div class="md:flex-grow">
-          <h2 class="text-2xl font-medium text-gray-900 title-font mb-2">Challenge header #2</h2>
-          <p class="leading-relaxed">This is some info about the challenge</p>
-          <a class="text-indigo-500 inline-flex items-center mt-4">Learn More
-            <svg class="w-4 h-4 ml-2" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round">
-              <path d="M5 12h14"></path>
-              <path d="M12 5l7 7-7 7"></path>
-            </svg>
-          </a>
-        </div>
+
       </div>
     </div>
-  </div>
-</section>
+  </section>
+
+  <script src="js/main.js"></script>
 
 
 </body>
